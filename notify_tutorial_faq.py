@@ -23,3 +23,12 @@ server.starttls()
 server.login(username,password)
 server.sendmail(fromaddr, toaddrs, msg)
 server.quit()
+
+import MySQLdb
+
+try:
+  # 建立DB 連線資訊定設定中文編碼utf-8
+  db = MySQLdb.connect("qnap.dev","root","root","yen_nas",charset='utf8')
+
+except MySQLdb.Error as e:
+  print ("Error %d: %s" % (e.args[0], e.args[1]))
