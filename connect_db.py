@@ -11,8 +11,8 @@ import MySQLdb
 
 try:
   db = MySQLdb.connect("qnap.dev","root","root","yen_nas",charset='utf8')
-
   sql = "SELECT * FROM `qtip_product_specs` WHERE `field_id` = 757"
+#  sql = "SELECT page_type, page_id, count(*) as total_votes FROM `page_helpful` where page_type='tutorial' group by `page_type`, `page_id` order by total_votes desc"
 
   # 執行SQL statement
   cursor = db.cursor()
@@ -20,13 +20,15 @@ try:
 
   # 撈取多筆資料
   results = cursor.fetchall()
-
+#  print(results)
   # 迴圈撈取資料
   for record in results: 
-      col1 = record[0]
-      col2 = record[1]
+      page_type = record[0]
+      page_id = record[1]
+      total_votes = record[2]
+      
     
-      print ("%s, %s" % (col1, col2))
+      print ("%s, %s, %s" % (page_type, page_id, total_votes))
 
   # 關閉連線
   db.close()
