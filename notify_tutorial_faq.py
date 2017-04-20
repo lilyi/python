@@ -30,12 +30,13 @@ msg['To'] = ', '.join(EMAIL_TO)
 text = "Hi,\n\nHere is the top10 unhelpful pages.\nFYI.\n"
 text1 = "Best Regards,\nLily, Li\n\nQNAP Systems, Inc.\n3F, No.22, Zhongxing Rd., Xizhi Dist., New Taipei City, 221, Taiwan\n Tel: 886-2-2641-2000 #11091"
 part = MIMEBase('application', "octet-stream")
+part0 = MIMEText(text, 'plain')
 part1 = MIMEText(text1, 'plain')
 part.set_payload(open("eggs.csv", "rb").read())
 encoders.encode_base64(part)
 
 part.add_header('Content-Disposition', 'attachment; filename="eggs.csv"')
-
+msg.attach(part0)
 msg.attach(part)
 msg.attach(part1)
 
