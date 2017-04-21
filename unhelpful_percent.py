@@ -54,14 +54,14 @@ def main():
                 unfelpful_count.append(i[1])
                 per = round(100*(i[1]/all_dict[str(i[0])][1]),2)
                 percent.append(per)
-                result.append([str(i[0]), per, all_dict[str(i[0])][1]])
+                url = 'https://www.qnap.com/en/how-to/%s/con_show.php?cid=%s' % (each, str(i[0]))
+                result.append([url, per, all_dict[str(i[0])][1]])
             top10 = sorted(result, key = lambda x : (x[1], x[2]), reverse=True)[:10]
 #            print(result)
 #            print(top10)
-            
             with open('unhelpful_%s.csv' % each, 'w', newline='') as csvfile:
                 writer = csv.writer(csvfile)
-                writer.writerow(['page_id','unhelpful (%)', 'total_votes'])
+                writer.writerow(['page','unhelpful (%)', 'total_votes'])
                 writer.writerows(top10)
 #            關閉連線
             db.close()
