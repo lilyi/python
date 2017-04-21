@@ -29,7 +29,7 @@ COMMASPACE = ', '
 def main():
     sender = 'lilyli@qnap.com'
     gmail_password = 'qnaplily07'
-    recipients = ['lily60622@gmail.com', 'lilyli@qnap.com']
+    recipients = ['evenlo@qnap.com', 'lilyli@qnap.com', 'woodychang@qnap.com']
     
     # Create the enclosing (outer) message
     outer = MIMEMultipart()
