@@ -15,8 +15,10 @@ def main():
     type_name = ['tutorial', 'faq']
     for each in type_name:
         try:
-    #        db = MySQLdb.connect(host="10.8.2.125",user="marketing_query",passwd="WStFfFDSrzzdEQFW",db="web_analytics",charset='utf8')
-            db = MySQLdb.connect("qnap.dev","root","root","web_analytics",charset='utf8')
+#            db = MySQLdb.connect(host="10.8.2.125",user="marketing_query",passwd="WStFfFDSrzzdEQFW",db="web_analytics")
+            
+#            db = MySQLdb.connect(host="10.8.2.125",user="marketing_query",passwd="WStFfFDSrzzdEQFW",db="web_analytics",charset='utf8')
+            db = MySQLdb.connect("qnap.dev","root","root","web_analytics")
     #        sql = "SELECT * FROM `qtip_product_specs` WHERE `field_id` = 757"
             sql = "SELECT page_type, page_id, count(*) as total_votes FROM `page_helpful` where page_type='%s' group by `page_id` order by total_votes desc" % each
     #        sql = "SELECT page_id, count(*) as unhelpful_count FROM `page_helpful` WHERE `page_type` = 'tutorial' AND `page_id` IN (137,184,253,15,246) AND helpful = 0 group by page_id"    
@@ -25,7 +27,8 @@ def main():
             cursor.execute(sql)        
     #        撈取多筆資料
             all_results = cursor.fetchall()   
-    #        print(results)
+            print(all_results)
+            print('\n')
     #        迴圈撈取資料
     #        page_type = []
     #        page_id = []
@@ -39,18 +42,20 @@ def main():
     #            page_id.append(record[1])
                 total_votes.append(record[2]) 
             med = statistics.median(total_votes)
-    #        print(med)
+            print('med = ',med)
             all_pID = []
             for i in all_data:
                 if i[2] >= med:
                    all_pID.append(str(i[1]))
     #        print(all_pID, len(all_pID), len(all_dict))
             all_pID2 = ','.join(all_pID)
-            sql2 = "SELECT page_id, count(*) as unhelpful_count FROM `page_helpful` WHERE `page_type` = 'tutorial' AND `page_id` IN (%s) AND helpful = 0 group by page_id" % all_pID2
+            sql2 = "SELECT page_id, count(*) as unhelpful_count FROM `page_helpful` WHERE `page_type` = '%s' AND `page_id` IN (%s) AND helpful = 0 group by page_id" % (each, all_pID2)
             cursor.execute(sql2)
             unhelpful_results = cursor.fetchall()
-    #        print(len(res))
-    #        print(d)
+            print(unhelpful_results)
+            print('\n')
+            print(all_dict)
+            print('\n +++++')
             unhelpful_pID = []
             unfelpful_count = []
             percent = []
@@ -64,7 +69,7 @@ def main():
                 percent.append(per)
                 result.append([str(i[0]), per])
             top10 = sorted(result, key = lambda x : x[1], reverse=True)[:10]
-            print(top10)
+#            print(top10)
             
             with open('unhelpful_%s.csv' % each, 'w', newline='') as csvfile:
                 writer = csv.writer(csvfile)
