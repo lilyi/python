@@ -36,24 +36,21 @@ def main():
     outer['Subject'] = 'Top10 unhelpful Tutorial & FAQ'
     outer['To'] = COMMASPACE.join(recipients)
     outer['From'] = sender
-    outer.preamble = 'You will not see this in a MIME-aware mail reader.\n'
+    outer.preamble = 'You will not see this in a MIME-aware mail reader.\n'    
     body = """
     Hi,
     
     Here is the top10.
     FYI.
     
-    Best Regards,
+    Best regards,
     Lily, Li
     QNAP Systems, Inc.
     3F, No.22, Zhongxing Rd., Xizhi Dist., New Taipei City, 221, Taiwan
     Tel: 886-2-2641-2000 #11091
     """    
     outer.attach(MIMEText(body, 'plain'))     
-#    text1 = ""
-#    text2 = "Hi,\nHere is the top10.\nFYI.\n\nBest Regards,\nLily, Li\n\nQNAP Systems, Inc.\n3F, No.22, Zhongxing Rd., Xizhi Dist., New Taipei City, 221, Taiwan\n Tel: 886-2-2641-2000 #11091"
-
-   
+    
     # List of attachments
     attachments = ['unhelpful_tutorial.csv', 'unhelpful_faq.csv']
 
@@ -70,8 +67,6 @@ def main():
         except:
             print("Unable to open one of the attachments. Error: ", sys.exc_info()[0])
             raise
-
-
 
     composed = outer.as_string()
 
