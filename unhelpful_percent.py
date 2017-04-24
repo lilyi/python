@@ -43,6 +43,10 @@ def main():
             cursor.execute(sql2)
             unhelpful_results = cursor.fetchall()
 #            print('\n +++++')
+            if each == 'tutorial':
+                TYPE = 'trade_teach'
+            else:
+                TYPE = 'qa'
             unhelpful_pID = []
             unfelpful_count = []
             percent = []
@@ -55,16 +59,23 @@ def main():
                 per = round(100*(i[1]/all_dict[str(i[0])][1]),2)
                 percent.append(per)
                 url = 'https://www.qnap.com/en/how-to/%s/con_show.php?cid=%s' % (each, str(i[0]))
-                result.append([url, per, all_dict[str(i[0])][1]])
+                db2 = MySQLdb.connect(host="10.8.2.125",user="marketing_query",passwd="WStFfFDSrzzdEQFW",db="yen_nas", charset='utf8')
+                cursor = db2.cursor()
+                sql3 = "SELECT title FROM `%s` WHERE `cid` = %s AND `lang_set` = 'en'" % (TYPE, str(i[0]))
+                cursor.execute(sql3)
+                title_result = cursor.fetchall()
+#                print(title_result[0][0])
+                result.append([url, per, all_dict[str(i[0])][1], str(title_result[0][0])])
             top10 = sorted(result, key = lambda x : (x[1], x[2]), reverse=True)[:10]
 #            print(result)
 #            print(top10)
             with open('unhelpful_%s.csv' % each, 'w', newline='') as csvfile:
                 writer = csv.writer(csvfile)
-                writer.writerow(['page','unhelpful (%)', 'total_votes'])
+                writer.writerow(['page','unhelpful (%)', 'total_votes', 'title'])
                 writer.writerows(top10)
 #            關閉連線
             db.close()
+            db2.close()
         
         except MySQLdb.Error as e:
             print ("Error %d: %s" % (e.args[0], e.args[1]))
