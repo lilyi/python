@@ -19,7 +19,6 @@ COMMASPACE = ', '
 def main():
     sender = 'QNAP Marketing'
     recipients = ['evenlo@qnap.com', 'lilyli@qnap.com', 'woodychang@qnap.com']   
-    # Create the enclosing (outer) message
     outer = MIMEMultipart()
     outer['Subject'] = 'Top10 unhelpful Tutorial & FAQ'
     outer['To'] = COMMASPACE.join(recipients)
