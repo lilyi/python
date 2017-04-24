@@ -27,10 +27,8 @@ from email.mime.text import MIMEText
 COMMASPACE = ', '
 
 def main():
-    sender = 'lilyli@qnap.com'
-    gmail_password = 'qnaplily07'
-    recipients = ['evenlo@qnap.com', 'lilyli@qnap.com', 'woodychang@qnap.com']
-    
+    sender = 'QNAP Marketing'
+    recipients = ['evenlo@qnap.com', 'lilyli@qnap.com', 'woodychang@qnap.com']   
     # Create the enclosing (outer) message
     outer = MIMEMultipart()
     outer['Subject'] = 'Top10 unhelpful Tutorial & FAQ'
@@ -40,14 +38,11 @@ def main():
     body = """
     Hi,
     
-    Here is the top10.
+    Here are the top10s of FAQ and Tutorial pages.
     FYI.
     
     Best regards,
-    Lily, Li
-    QNAP Systems, Inc.
-    3F, No.22, Zhongxing Rd., Xizhi Dist., New Taipei City, 221, Taiwan
-    Tel: 886-2-2641-2000 #11091
+    QNAP Marketing.
     """    
     outer.attach(MIMEText(body, 'plain'))     
     
@@ -72,11 +67,7 @@ def main():
 
     # Send the email
     try:
-        with smtplib.SMTP('smtp.gmail.com', 587) as s:
-            s.ehlo()
-            s.starttls()
-            s.ehlo()
-            s.login(sender, gmail_password)
+        with smtplib.SMTP('mail5.qnappm.info') as s:
             s.sendmail(sender, recipients, composed)
             s.close()
         print("Email sent!")
