@@ -5,7 +5,6 @@ Created on Tue Apr 18 15:52:41 2017
 @author: Lily
 """
 
-# coding=UTF-8
 
 import MySQLdb
 import statistics

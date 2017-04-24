@@ -3,17 +3,7 @@
 Created on Thu Apr 20 09:59:23 2017
 
 @author: Lily
-"""
-
-#!/usr/bin/env python
-"""
-python_3_email_with_attachment.py
-Created by Robert Dempsey on 12/6/14.
-Copyright (c) 2014 Robert Dempsey. Use at your own peril.
-
 This script works with Python 3.x
-
-NOTE: replace values in ALL CAPS with your own values
 """
 
 import sys
